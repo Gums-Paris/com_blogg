@@ -1,0 +1,29 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "com_blogg",
+  "version": "CVS: 1.0.0",
+  "license": "GNU General Public License version 2 or later; see LICENSE.txt",
+  "assets": [
+    {
+      "name": "com_blogg.admin",
+      "type": "style",
+      "uri": "com_blogg/admin.css"
+    },
+    {
+      "name": "com_blogg.admin",
+      "type": "script",
+      "uri": "com_blogg/admin.js",
+      "dependencies": [
+        "jquery"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+        "name": "com_blogg.list",
+        "type": "style",
+        "uri": "com_blogg/list.css"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field name="search" type="text" description="COM_BLOGG_SEARCH_FILTER_SUBMIT"
+               label="COM_USERS_FILTER_SEARCH_DESC"
+               class="js-stools-search-string" />
+
+        <field name="state"
+               type="status"
+               label="COM_BLOGG_FILTER_STATE"
+               description="COM_BLOGG_FILTER_STATE_DESC"
+               onchange="this.form.submit();"
+        >
+            <option value="">JOPTION_SELECT_PUBLISHED</option>
+        </field>
+
+        
+
+    </fields>
+
+    <fields name="list">
+
+        <field name="fullordering"
+               type="list"
+               label="COM_BLOGG_LIST_FULL_ORDERING"
+               description="COM_BLOGG_LIST_FULL_ORDERING_DESC"
+               onchange="this.form.submit();"
+               default="a.id DESC"
+        >
+            <option value="">JGLOBAL_SORT_BY</option>
+            <option value="a.id ASC">COM_BLOGG_ID_ASC</option><option value="a.id DESC">COM_BLOGG_ID_DESC</option><option value="a.state ASC">COM_BLOGG_STATE_ASC</option><option value="a.state DESC">COM_BLOGG_STATE_DESC</option><option value="a.ordering ASC">COM_BLOGG_ORDERING_ASC</option><option value="a.ordering DESC">COM_BLOGG_ORDERING_DESC</option><option value="a.created_by ASC">COM_BLOGG_CREATED_BY_ASC</option><option value="a.created_by DESC">COM_BLOGG_CREATED_BY_DESC</option><option value="a.modified_by ASC">COM_BLOGG_MODIFIED_BY_ASC</option><option value="a.modified_by DESC">COM_BLOGG_MODIFIED_BY_DESC</option><option value="a.post_id ASC">COM_BLOGG_POST_ID_ASC</option><option value="a.post_id DESC">COM_BLOGG_POST_ID_DESC</option><option value="a.comment_date ASC">COM_BLOGG_COMMENT_DATE_ASC</option><option value="a.comment_date DESC">COM_BLOGG_COMMENT_DATE_DESC</option><option value="a.comment_update ASC">COM_BLOGG_COMMENT_UPDATE_ASC</option><option value="a.comment_update DESC">COM_BLOGG_COMMENT_UPDATE_DESC</option><option value="a.comment_ip ASC">COM_BLOGG_COMMENT_IP_ASC</option><option value="a.comment_ip DESC">COM_BLOGG_COMMENT_IP_DESC</option><option value="a.comment_hit ASC">COM_BLOGG_COMMENT_HIT_ASC</option><option value="a.comment_hit DESC">COM_BLOGG_COMMENT_HIT_DESC</option><option value="a.comment_title ASC">COM_BLOGG_COMMENT_TITLE_ASC</option><option value="a.comment_title DESC">COM_BLOGG_COMMENT_TITLE_DESC</option><option value="a.comment_desc ASC">COM_BLOGG_COMMENT_DESC_ASC</option><option value="a.comment_desc DESC">COM_BLOGG_COMMENT_DESC_DESC</option><option value="a.comment_gallery ASC">COM_BLOGG_COMMENT_GALLERY_ASC</option><option value="a.comment_gallery DESC">COM_BLOGG_COMMENT_GALLERY_DESC</option><option value="a.comment_gallery_text ASC">COM_BLOGG_COMMENT_GALLERY_TEXT_ASC</option><option value="a.comment_gallery_text DESC">COM_BLOGG_COMMENT_GALLERY_TEXT_DESC</option>
+
+        </field>
+
+       <field name="limit"
+               type="limitbox"
+               label="COM_BLOGG_LIST_LIMIT"
+               description="COM_BLOGG_LIST_LIMIT_DESC"
+               class="input-mini"
+               default="25"
+               onchange="this.form.submit();"
+        />
+
+    </fields>
+
+</form>

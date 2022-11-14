@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<component>
+  <table action="add" table_name="#__blogg_comments" storage_engine="" collation="utf8mb4_unicode_ci">
+    <field field_name="id" field_type="INT" field_length="11" is_autoincrement="1" index="primary" description=""/>
+    <field field_name="state" field_type="TINYINT" field_length="1" index="index" description=""/>
+    <field field_name="ordering" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="checked_out" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="checked_out_time" field_type="DATETIME" description=""/>
+    <field field_name="created_by" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="modified_by" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="post_id" field_type="INT" field_length="11" description="Id of related post"/>
+    <field field_name="comment_title" field_type="VARCHAR" field_length="150" description="Comment Title"/>
+    <field field_name="comment_desc" field_type="TEXT" description="Comment text"/>
+    <field field_name="comment_gallery" field_type="VARCHAR" field_length="255" description="URL external gallery"/>
+    <field field_name="comment_gallery_text" field_type="VARCHAR" field_length="255" description="Gallery name"/>
+    <field field_name="comment_date" field_type="DATETIME" description="Date"/>
+    <field field_name="comment_update" field_type="DATETIME" description="Update date"/>
+    <field field_name="comment_ip" field_type="VARCHAR" field_length="15" description="Author ip"/>
+    <field field_name="comment_hit" field_type="INT" field_length="11" description="Number of views"/>
+  </table>
+  <table action="add" table_name="#__blogg_posts" storage_engine="" collation="utf8mb4_unicode_ci">
+    <field field_name="id" field_type="INT" field_length="11" is_autoincrement="1" index="primary" description=""/>
+    <field field_name="state" field_type="TINYINT" field_length="1" index="index" description=""/>
+    <field field_name="ordering" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="checked_out" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="checked_out_time" field_type="DATETIME" description=""/>
+    <field field_name="created_by" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="modified_by" field_type="INT" field_length="11" index="index" description=""/>
+    <field field_name="post_title" field_type="VARCHAR" field_length="500" description="Title"/>
+    <field field_name="post_desc" field_type="TEXT" description="Your text"/>
+    <field action="change" field_name="post_image" field_type="VARCHAR" field_length="255" description="Add an image"/>
+    <field field_name="ext_gallery" field_type="VARCHAR" field_length="255" description="URL external gallery"/>
+    <field field_name="post_date" field_type="DATETIME" description="Post date"/>
+    <field field_name="ext_gallery_text" field_type="VARCHAR" field_length="255" description="Gallery  name"/>
+    <field field_name="post_update" field_type="DATETIME" description="Post update date"/>
+    <field field_name="post_ip" field_type="VARCHAR" field_length="15" description="Author IP"/>
+    <field field_name="post_hits" field_type="INT" field_length="11" description="Number of views"/>
+  </table>
+</component>

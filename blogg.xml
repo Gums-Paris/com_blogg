@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="4.0" method="upgrade">
+    <name>com_blogg</name>
+    <creationDate>2022-11-11</creationDate>
+    <copyright>2022 Pastre</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <author>Pastre</author>
+    <authorEmail>claude.pastre@free.fr</authorEmail>
+    <authorUrl>https://gumsparis.asso.fr/</authorUrl>
+    <version>CVS: 1.0.3</version>
+    <description>COM_BLOGG_XML_DESCRIPTION</description>
+    <namespace path="src">Blogg\Component\Blogg</namespace>
+    
+    <scriptfile>script.php</scriptfile>
+    
+    <install> <!-- Runs on install -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <update> <!-- Runs on update -->
+        <schemas>
+            <schemapath type="mysql">sql/updates</schemapath>
+        </schemas>
+    </update>
+    <uninstall> <!-- Runs on uninstall -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+
+    
+
+    <files folder="site">
+        <folder>src</folder>
+        <folder>forms</folder>
+        <folder>tmpl</folder>
+    </files>
+    <media destination="com_blogg" folder="media">
+        <folder>css</folder>
+        <folder>js</folder>
+        <folder>grandes</folder>
+        <filename>joomla.asset.json</filename>
+  	<filename>index.html</filename>
+   </media>
+    <languages folder="site/languages">
+        
+			<language tag="en-GB">en-GB/com_blogg.ini</language>
+			<language tag="fr-FR">fr-FR/com_blogg.ini</language>
+    </languages>
+    <administration>
+        <menu>COM_BLOGG</menu>
+        <submenu>
+            
+			<menu link="option=com_blogg&amp;view=posts" view="posts" alt="Blogg/Posts">COM_BLOGG_TITLE_POSTS</menu>
+
+			<menu link="option=com_blogg&amp;view=comments" view="comments" alt="Blogg/Comments">COM_BLOGG_TITLE_COMMENTS</menu>
+
+        </submenu>
+        <files folder="administrator">
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <folder>forms</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
+            <folder>services</folder>
+            <folder>presets</folder>
+            <folder>sql</folder>
+        </files>
+        <languages folder="administrator/languages">
+            
+			<language tag="en-GB">en-GB/com_blogg.ini</language>
+			<language tag="en-GB">en-GB/com_blogg.sys.ini</language>
+			<language tag="fr-FR">fr-FR/com_blogg.ini</language>
+			<language tag="fr-FR">fr-FR/com_blogg.sys.ini</language>
+        </languages>
+    </administration>
+    <config>
+        <fields name="params">
+            <fieldset name="component">
+                <field name="save_history" default="0" />
+            </fieldset>
+        </fields>
+    </config>
+    <plugins>
+		<plugin group="finder" plugin="bloggposts"/>
+    </plugins>
+    
+
+    <updateservers>
+        <server type="extension" priority="1" name="com_blogg">https://nocdn.component-creator.com/index.php?task=builder.preupdatecheckhook&amp;option=com_combuilder&amp;component=Njc0NTItMjA0OTk4</server>
+    </updateservers>
+</extension>
+<!-- Component built by the Joomla Component Creator -->
+<!-- http://www.component-creator.com/ -->

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addfieldprefix="Blogg\Component\Blogg\Site\Field">
+  <fieldset>
+    <field name="id" type="text" readonly="true" class="readonly" default="0" description="JGLOBAL_FIELD_ID_DESC"/>
+    <field name="state" default="1" type="list" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" class="inputbox" size="1">
+      <option value="1">JPUBLISHED</option>
+      <option value="0">JUNPUBLISHED</option>
+      <option value="2">JARCHIVED</option>
+      <option value="-2">JTRASHED</option>
+    </field>
+    <field name="ordering"/>
+    <field name="checked_out" type="hidden" filter="unset"/>
+    <field name="checked_out_time" type="hidden" filter="unset"/>
+    <field name="post_date" default="false" type="calendar" class="inputbox" format="%Y-%m-%d %H:%M:%S" showtime="true" translateformat="true" label="COM_BLOGG_FORM_LBL_POST_POST_DATE" description="COM_BLOGG_FORM_DESC_POST_POST_DATE" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_POST_DATE"/>
+    <field name="post_update" default="false" type="calendar" class="inputbox" format="%Y-%m-%d %H:%M:%S" showtime="true" translateformat="true" label="COM_BLOGG_FORM_LBL_POST_POST_UPDATE" description="COM_BLOGG_FORM_DESC_POST_POST_UPDATE" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_POST_UPDATE"/>
+    <field name="post_ip" default="NULL" label="COM_BLOGG_FORM_LBL_POST_POST_IP" description="COM_BLOGG_FORM_DESC_POST_POST_IP" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_POST_IP"/>
+    <field name="post_hits" default="0" label="COM_BLOGG_FORM_LBL_POST_POST_HITS" description="COM_BLOGG_FORM_DESC_POST_POST_HITS" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_POST_HITS"/>
+    <field name="post_title" default="false" required="true" message="Donner un titre au post" label="COM_BLOGG_FORM_LBL_POST_POST_TITLE" description="COM_BLOGG_FORM_DESC_POST_POST_TITLE" hint="COM_BLOGG_FORM_LBL_POST_POST_TITLE"/>
+    <field name="post_desc" default="false" type="editor" buttons="true" class="inputbox" filter="safehtml" required="true" message="Please write a text" label="COM_BLOGG_FORM_LBL_POST_POST_DESC" description="COM_BLOGG_FORM_DESC_POST_POST_DESC" hint="COM_BLOGG_FORM_LBL_POST_POST_DESC"/>
+    <field name="post_image" default="NULL" label="COM_BLOGG_FORM_LBL_POST_POST_IMAGE" description="COM_BLOGG_FORM_DESC_POST_POST_IMAGE" hint="COM_BLOGG_FORM_LBL_POST_POST_IMAGE"/>
+    <field name="ext_gallery" default="false" label="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY" description="COM_BLOGG_FORM_DESC_POST_EXT_GALLERY" hint="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY"/>
+    <field name="ext_gallery_text" default="false" label="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY_TEXT" description="COM_BLOGG_FORM_DESC_POST_EXT_GALLERY_TEXT" hint="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY_TEXT"/>
+    <field name="version_note" type="text" label="JGLOBAL_FIELD_VERSION_NOTE_LABEL" description="JGLOBAL_FIELD_VERSION_NOTE_DESC" class="inputbox" size="45" labelclass="control-label"/>
+  </fieldset>
+</form>

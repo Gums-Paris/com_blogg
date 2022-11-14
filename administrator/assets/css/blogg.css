@@ -1,0 +1,31 @@
+.icon-48-posts {
+      background-image: url(../images/l_posts.png);
+      padding-left:60px!important;
+}
+
+.icon-48-post {
+      background-image: url(../images/l_posts.png);
+      padding-left:60px!important;
+}
+
+.color-box-posts { 
+      float: left;      width: 15px;      height: 15px;      margin-right: 5px;      border: 1px solid rgba(0, 0, 0, .2);}
+
+.icon-48-comments {
+      background-image: url(../images/l_comments.png);
+      padding-left:60px!important;
+}
+
+.icon-48-comment {
+      background-image: url(../images/l_comments.png);
+      padding-left:60px!important;
+}
+
+.color-box-comments { 
+      float: left;      width: 15px;      height: 15px;      margin-right: 5px;      border: 1px solid rgba(0, 0, 0, .2);}
+
+
+
+.other-filters{
+    padding: 0 14px;
+}

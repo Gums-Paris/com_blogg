@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="4.0" type="plugin" group="finder">
+    <name>plg_finder_bloggposts</name>
+    <author>Pastre</author>
+    <creationDate>2022-11-11</creationDate>
+    <copyright>2022 Pastre</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>claude.pastre@free.fr</authorEmail>
+    <authorUrl>https://gumsparis.asso.fr/</authorUrl>
+    <version>CVS: 1.0.0</version>
+    <description>PLG_FINDER_COM_BLOGG_XML_DESCRIPTION</description>
+    <files>
+        <filename plugin="bloggposts">bloggposts.php</filename>
+        <filename>index.html</filename>
+    </files>
+    <languages folder="languages">
+        
+			<language tag="en-GB">en-GB/plg_finder_bloggposts.ini</language>
+			<language tag="en-GB">en-GB/plg_finder_bloggposts.sys.ini</language>
+			<language tag="fr-FR">fr-FR/plg_finder_bloggposts.ini</language>
+			<language tag="fr-FR">fr-FR/plg_finder_bloggposts.sys.ini</language>
+    </languages>
+    <config>
+    </config>
+    <updateservers>
+        <server type="extension" priority="1" name="com_blogg">https://www.component-creator.com/index.php?task=builder.preupdatecheckhook&amp;option=com_combuilder&amp;component=Njc0NTItMjA0OTk4</server>
+    </updateservers>
+</extension>
