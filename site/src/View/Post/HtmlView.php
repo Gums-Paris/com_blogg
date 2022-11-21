@@ -54,6 +54,14 @@ class HtmlView extends BaseHtmlView
 			$this->form = $this->get('Form');
 		}
 
+		if (isset ($this->item->comments)) {
+			$this->BlogCommentCount = count($this->item->comments);
+		}else{
+			$this->BlogCommentCount = 0;
+		}
+     
+		$this->blogTitle = $app->getMenu()->getActive()->getParams()->get('blog_title');		
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{

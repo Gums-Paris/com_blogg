@@ -44,53 +44,21 @@ $wa->useStyle('com_blogg.list');
 		<table class="table table-striped" id="postList">
 			<thead>
 			<tr>
-				
-					<th class=''>
-						<?php echo HTMLHelper::_('grid.sort',  'COM_BLOGG_POSTS_ID', 'a.id', $listDirn, $listOrder); ?>
-					</th>
-
-					<th class=''>
-						<?php echo HTMLHelper::_('grid.sort',  'COM_BLOGG_POSTS_POST_TITLE', 'a.post_title', $listDirn, $listOrder); ?>
-					</th>
-
-					<th class=''>
-						<?php echo HTMLHelper::_('grid.sort',  'COM_BLOGG_POSTS_POST_DESC', 'a.post_desc', $listDirn, $listOrder); ?>
-					</th>
-
-					<th class=''>
-						<?php echo HTMLHelper::_('grid.sort',  'COM_BLOGG_POSTS_POST_IMAGE', 'a.post_image', $listDirn, $listOrder); ?>
-					</th>
-
-					<th class=''>
-						<?php echo HTMLHelper::_('grid.sort',  'COM_BLOGG_POSTS_EXT_GALLERY', 'a.ext_gallery', $listDirn, $listOrder); ?>
-					</th>
-
-					<th class=''>
-						<?php echo HTMLHelper::_('grid.sort',  'COM_BLOGG_POSTS_EXT_GALLERY_TEXT', 'a.ext_gallery_text', $listDirn, $listOrder); ?>
-					</th>
-
-					<th class=''>
-						<?php echo HTMLHelper::_('grid.sort',  'COM_BLOGG_POSTS_POST_DATE', 'a.post_date', $listDirn, $listOrder); ?>
-					</th>
-
-					<th class=''>
-						<?php echo HTMLHelper::_('grid.sort',  'COM_BLOGG_POSTS_POST_UPDATE', 'a.post_update', $listDirn, $listOrder); ?>
-					</th>
-
-					<th class=''>
-						<?php echo HTMLHelper::_('grid.sort',  'COM_BLOGG_POSTS_POST_HITS', 'a.post_hits', $listDirn, $listOrder); ?>
-					</th>
-
-					<th >
-						<?php echo HTMLHelper::_('grid.sort', 'JPUBLISHED', 'a.state', $listDirn, $listOrder); ?>
-					</th>
-
-						<?php if ($canEdit || $canDelete): ?>
-					<th class="center">
-						<?php echo Text::_('COM_BLOGG_POSTS_ACTIONS'); ?>
-					</th>
-					<?php endif; ?>
-
+				<div class="clsLinkedBlog">
+					<div class="clsLinkedBlog_title"><?php echo JText::_('COM_BLOG_TITLE'); ?></div>
+				</div>
+										
+				<div id="clsTopMenuBg">
+					<?php if($userId > 0){ ?>
+					<div class="clsFloatRight"><img src="<?php echo $this->baseurl; ?>/media/com_blogg/Images/icons/add_post.png"  border="0" width="16px" align="bottom" alt="Add New Post" />
+						<a href="<?php echo JRoute::_( 'index.php?option=com_blogg&task=postform.edit&id=0', false ); ?>"><?php echo JText::_('COM_BLOG_ADD_NEW_POST');?></a>
+					</div>
+					<?php } else {?>
+					<div class="clsFloatRight"><a href="<?php echo JRoute::_('index.php?option=com_users&view=login'. '&return='. base64_encode(JURI::getInstance()->toString()), false);?>"><?php echo JText::_('COM_BLOG_LOGIN_TO_POST');?> </a>
+					</div>
+					<?php } ?>
+					<div class="clsClearBoth"></div>
+				</div>
 			</tr>
 			</thead>
 			<tfoot>
@@ -103,71 +71,81 @@ $wa->useStyle('com_blogg.list');
 			</tr>
 			</tfoot>
 			<tbody>
-			<?php foreach ($this->items as $i => $item) : ?>
+			<?php  foreach ($this->items as $i => $item) : ?>
 				<?php $canEdit = $user->authorise('core.edit', 'com_blogg'); ?>
 				<?php if (!$canEdit && $user->authorise('core.edit.own', 'com_blogg')): ?>
 				<?php $canEdit = Factory::getApplication()->getIdentity()->id == $item->created_by; ?>
 				<?php endif; ?>
+			<?php $author_link = JRoute::_( 'index.php?view=posts',false);
+				  if ($userId > 0) 
+					{$author_link = JRoute::_( 'index.php?option=com_comprofiler&task=userProfile&user='.$item->created_by, false);}
+			 ?>
 
-				<tr class="row<?php echo $i % 2; ?>">
+			<tr class="row<?php echo $i % 2; ?>">
 					
+				<?php $canCheckin = Factory::getApplication()->getIdentity()->authorise('core.manage', 'com_blogg.' . $item->id) || $item->checked_out == Factory::getApplication()->getIdentity()->id; ?>
+				<?php if($canCheckin && $item->checked_out > 0) : ?>
+					<a href="<?php echo Route::_('index.php?option=com_blogg&task=post.checkin&id=' . $item->id .'&'. Session::getFormToken() .'=1'); ?>">
+					<?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->uEditor, $item->checked_out_time, 'post.', false); ?></a>
+				<?php endif; ?>
+				<div class="clsPostTitle"><a href="<?php echo Route::_('index.php?option=com_blogg&view=post&id='.(int) $item->id, false); ?>"><?php echo $this->escape($item->post_title); ?></a></div>
+				<div class="clsTDBorderTop"></div>
+				<?php if($item->post_image){?>
+					<img src="<?php echo $this->baseurl.'/media/com_blogg/th'.$item->post_image;?>"  border="0" alt="Blog Image" align="left" class="clsImgPad" />
+				<?php } ?>		
+				<div class="clsMyText"><?php print( substr( JText::_( $item->post_desc),0,500));?>...
+				<a href="<?php echo JRoute::_( 'index.php?option=com_blogg&view=post&id='.$item->id, false); ?>">
+					<?php echo JText::_('COM_BLOG_READ_MORE');?>
+				</a>
+				</div>
+			</tr>
+<!-- arrêt temporaire 		
+			<tr>
 					<td>
-						<?php echo $item->id; ?>
+						<?php //echo $item->post_desc; ?>
 					</td>
 					<td>
-						<?php $canCheckin = Factory::getApplication()->getIdentity()->authorise('core.manage', 'com_blogg.' . $item->id) || $item->checked_out == Factory::getApplication()->getIdentity()->id; ?>
-						<?php if($canCheckin && $item->checked_out > 0) : ?>
-							<a href="<?php echo Route::_('index.php?option=com_blogg&task=post.checkin&id=' . $item->id .'&'. Session::getFormToken() .'=1'); ?>">
-							<?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->uEditor, $item->checked_out_time, 'post.', false); ?></a>
-						<?php endif; ?>
-						<a href="<?php echo Route::_('index.php?option=com_blogg&view=post&id='.(int) $item->id); ?>">
-							<?php echo $this->escape($item->post_title); ?></a>
+						<?php //echo $item->post_image; ?>
 					</td>
 					<td>
-						<?php echo $item->post_desc; ?>
+						<?php //echo $item->ext_gallery; ?>
 					</td>
 					<td>
-						<?php echo $item->post_image; ?>
+						<?php //echo $item->ext_gallery_text; ?>
 					</td>
 					<td>
-						<?php echo $item->ext_gallery; ?>
+						<?php //echo $item->post_date; ?>
 					</td>
 					<td>
-						<?php echo $item->ext_gallery_text; ?>
+						<?php //echo $item->post_update; ?>
 					</td>
 					<td>
-						<?php echo $item->post_date; ?>
+						<?php //echo $item->post_hits; ?>
 					</td>
 					<td>
-						<?php echo $item->post_update; ?>
-					</td>
-					<td>
-						<?php echo $item->post_hits; ?>
-					</td>
-					<td>
-						<?php $class = ($canChange) ? 'active' : 'disabled'; ?>
-						<a class="btn btn-micro <?php echo $class; ?>" href="<?php echo ($canChange) ? JRoute::_('index.php?option=com_blogg&task=post.publish&id=' . $item->id . '&state=' . (($item->state + 1) % 2), false, 2) : '#'; ?>">
-						<?php if ($item->state == 1): ?>
+						<?php //$class = ($canChange) ? 'active' : 'disabled'; ?>
+						<a class="btn btn-micro <?php //echo $class; ?>" href="<?php //echo ($canChange) ? JRoute::_('index.php?option=com_blogg&task=post.publish&id=' . $item->id . '&state=' . (($item->state + 1) % 2), false, 2) : '#'; ?>">
+						<?php //if ($item->state == 1): ?>
 							<i class="icon-publish"></i>
-						<?php else: ?>
+						<?php //else: ?>
 							<i class="icon-unpublish"></i>
-						<?php endif; ?>
+						<?php //endif; ?>
 						</a>
 					</td>
-					<?php if ($canEdit || $canDelete): ?>
+					<?php //if ($canEdit || $canDelete): ?>
 						<td class="center">
-							<?php $canCheckin = Factory::getApplication()->getIdentity()->authorise('core.manage', 'com_blogg.' . $item->id) || $item->checked_out == Factory::getApplication()->getIdentity()->id; ?>
+							<?php //$canCheckin = Factory::getApplication()->getIdentity()->authorise('core.manage', 'com_blogg.' . $item->id) || $item->checked_out == Factory::getApplication()->getIdentity()->id; ?>
 
-							<?php if($canEdit && $item->checked_out == 0): ?>
-								<a href="<?php echo Route::_('index.php?option=com_blogg&task=post.edit&id=' . $item->id, false, 2); ?>" class="btn btn-mini" type="button"><i class="icon-edit" ></i></a>
-							<?php endif; ?>
-							<?php if ($canDelete): ?>
-								<a href="<?php echo Route::_('index.php?option=com_blogg&task=postform.remove&id=' . $item->id, false, 2); ?>" class="btn btn-mini delete-button" type="button"><i class="icon-trash" ></i></a>
-							<?php endif; ?>
+							<?php //if($canEdit && $item->checked_out == 0): ?>
+								<a href="<?php //echo Route::_('index.php?option=com_blogg&task=post.edit&id=' . $item->id, false, 2); ?>" class="btn btn-mini" type="button"><i class="icon-edit" ></i></a>
+							<?php //endif; ?>
+							<?php //if ($canDelete): ?>
+								<a href="<?php //echo Route::_('index.php?option=com_blogg&task=postform.remove&id=' . $item->id, false, 2); ?>" class="btn btn-mini delete-button" type="button"><i class="icon-trash" ></i></a>
+							<?php //endif; ?>
 						</td>
-					<?php endif; ?>
+					<?php //endif; ?>
 
-				</tr>
+				</tr>   -->
 			<?php endforeach; ?>
 			</tbody>
 		</table>

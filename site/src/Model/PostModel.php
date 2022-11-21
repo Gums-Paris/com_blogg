@@ -123,7 +123,6 @@ class PostModel extends ItemModel
 				$properties  = $table->getProperties(1);
 				$this->_item = ArrayHelper::toObject($properties, CMSObject::class);
 
-				
 			}
 
 			if (empty($this->_item))
@@ -131,7 +130,17 @@ class PostModel extends ItemModel
 				throw new \Exception(Text::_('COM_BLOGG_ITEM_NOT_LOADED'), 404);
 			}
 		}
-
+		
+// get the comments associated to this post		
+		$db 	= Factory::getDbo();
+		$query  = $db->getQuery(true);
+		$query	= 	'
+      SELECT comment.*, user.name AS commentedby
+			FROM #__blogg_comments AS comment 
+      LEFT JOIN #__users AS user ON comment.created_by = user.id
+			WHERE comment.state = "1" AND post_id='. (int) $id.' ORDER BY comment.comment_date ASC';
+		if ($this->_getList( $query )) {
+			$this->_item->comments = $this->_getList( $query ); }
 		
 
 		 $container = \Joomla\CMS\Factory::getContainer();

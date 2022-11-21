@@ -18,49 +18,211 @@ use \Joomla\CMS\Language\Text;
 use \Joomla\CMS\Session\Session;
 use Joomla\Utilities\ArrayHelper;
 
-$canEdit = Factory::getApplication()->getIdentity()->authorise('core.edit', 'com_blogg');
+// Import CSS
+$wa = $this->document->getWebAssetManager();
+$wa->useStyle('com_blogg.list');
 
+$userId  = Factory::getApplication()->getIdentity()->get('id');
+$userGroups  = Factory::getApplication()->getIdentity()->get('groups');
+$canEdit = Factory::getApplication()->getIdentity()->authorise('core.edit', 'com_blogg');
 if (!$canEdit && Factory::getApplication()->getIdentity()->authorise('core.edit.own', 'com_blogg'))
 {
 	$canEdit = Factory::getApplication()->getIdentity()->id == $this->item->created_by;
 }
+$canComment = Factory::getApplication()->getIdentity()->authorise('core.create', 'com_blogg') && file_exists(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'forms' . DIRECTORY_SEPARATOR . 'commentform.xml');
+$images_path = $this->baseurl . '/media/com_blogg/Images/icons/'; 
 ?>
 
-<div class="item_fields">
+<!--	<div class="table-responsive">  -->
+<div>
+	<div class="clsLinkedBlog">
+		<div class="clsLinkedBlog_title"><?php echo JText::_('COM_BLOG_TITLE'); ?></div>
+	</div>
+
+	<div id="clsTopMenuBg">
+		<?php if($userId > 0){ ?>
+		<div class="clsFloatRight">
+			<img src="<?php echo $this->baseurl; ?>/media/com_blogg/Images/icons/add_post.png"  border="0" width="16px" align="bottom" alt="Add New Post" />
+			<a href="<?php echo JRoute::_( 'index.php?option=com_blogg&task=postform.edit&id=0', false ); ?>"><?php echo JText::_('COM_BLOG_ADD_NEW_POST');?></a>
+		</div>
+		<?php } else {?>
+		<div class="clsFloatRight">
+			<a href="<?php echo JRoute::_('index.php?option=com_users&view=login'. '&return='. base64_encode(JURI::getInstance()->toString()), false);?>"><?php echo JText::_('COM_BLOG_LOGIN_TO_POST');?> </a>
+	    </div>
+		<?php } ?>
+		<div class="clsClearBoth"></div>
+	</div>
 
 	<table class="table">
-		
+		<tbody>
+			<tr>
+				<div class="clsPostTitle"><?php print($this->item->post_title);?></div>
+				<div class="clsTDBorderTop"></div>
+			</tr>
+			
+			<tr>
+			<?php 
+				if($this->item->post_image){
+					 $grande_image= JPATH_ROOT."/media/com_blogg/grandes/".$this->item->post_image;
+					 if(!JFile::exists($grande_image)) {
+			?>
+					<img src="<?php echo $this->baseurl; ?>/media/com_blogg/<?php echo "th".$this->item->post_image;?>"  
+					border="0" alt="Blog Imagette" align="left" class="clsImgPad" />
+			<?php 
+					} else { 
+			?>
+					<img src="<?php echo $this->baseurl; ?>/media/com_blogg/<?php echo "grandes/".$this->item->post_image;?>"  
+					border="0" alt="Blog Image" align="left" class="clsImgPad"	/>
+			<?php 
+					} 
+				}		
+			?>
+			<div class="clsMyText"><?php echo($this->item->post_desc);   ?></div>
+			</tr>
+			
+			<tr>
+			  <?php if ($this->item->ext_gallery) {
+				  echo '<br />'.JText::_('COM_BLOG_INVITE');
+				  if ($this->item->ext_gallery_text) { ?>
+					  <a href="<?php echo($this->item->ext_gallery) ?>" target="_blank"><?php echo($this->item->ext_gallery_text) ?></a>
+				  <?php } else { ?>
+					  <a href="<?php echo($this->item->ext_gallery) ?>" target="_blank"><?php echo($this->item->ext_gallery) ?></a>
+				  <?php } } ?>						  
+			</tr>
+			
+			<tr>
+				<div id="divBlogDetails">
+  				<?php echo JText::_('COM_BLOG_AUTHOR');
+    					$author_link = JRoute::_( 'index.php?view=post&id='.$this->item->id,false);
+    					if ($userId > 0) 
+    						{$author_link = JRoute::_( 'index.php?option=com_comprofiler&task=userProfile&user='.$this->item->created_by, false);}
+  				?>
+					<a href="<?php echo $author_link;?>">
+				<?php echo JText::_($this->item->created_by_name);?>
+					</a>
+  				<?php 
+					echo  ' - '.JText::_('COM_BLOG_DATE').' '.JHTML::_('date',  $this->item->post_date, JText::_('DATE_FORMAT_LC1')) .' - ';   				  				   				
+					if($this->item->created_by == $userId
+						or in_array(8, $userGroups)) {  
+				?>        
+							<img src="<?php echo $images_path; ?>favorite.gif"  border="0" alt="Edit" />
+							<a href="<?php echo JRoute::_( 'index.php?view=addpost&pid='.$this->item->id.'&author='.$this->item->created_by, false); ?>">
+						<?php echo JText::_('JACTION_EDIT');?>
+							</a>					
+						<?php $delLink = JRoute::_( 'index.php?view=comments&task=delete_mypost&pid=' 
+							.$this->item->id.'&author='.$this->item->created_by, false);?>
+							<img src="<?php echo  $images_path; ?>delete.gif"  border="0" alt="Delete" />
+							<a href="javascript:void(0);"  onClick="javascript:__fncDeletePosts('<?php echo $delLink;?>');return false;">
+						<?php echo JText::_('JACTION_DELETE');?>
+							</a>
+						<?php if($this->item->post_image){    ?>        
+							<?php $delLink = JRoute::_( 'index.php?view=comments&task=delete_mypost_image&pid=' 
+								.$this->item->id.'&author='.$this->item->created_by, false);?>
+								<img src="<?php echo  $images_path; ?>delete.gif"  border="0" alt="Delete" />
+								<a href="javascript:void(0);"  onClick="javascript:__fncDeletePostImage('<?php echo $delLink;?>');return false;">
+							<?php echo JText::_('COM_BLOG_DELETE_IMAGE');?>
+								</a>
+					<?php
+						}
+					}
+					?>
+				</div>
+			</tr>
 
-		<tr>
-			<th><?php echo Text::_('COM_BLOGG_FORM_LBL_POST_POST_TITLE'); ?></th>
-			<td><?php echo $this->item->post_title; ?></td>
-		</tr>
+<!-- end post -->
+<!-- begin comments -->
 
-		<tr>
-			<th><?php echo Text::_('COM_BLOGG_FORM_LBL_POST_POST_DESC'); ?></th>
-			<td><?php echo $this->item->post_desc; ?></td>
-		</tr>
+	  <tr>
+	  	<td align="left" valign="top">
+			<div class="clsBGCommentTop">
+				<?php echo JText::_('COM_BLOG_COMMENTS').' ('.$this->BlogCommentCount.')';?>
+			</div>
+		</td>
+	  </tr>
+	  <?php 
 
-		<tr>
-			<th><?php echo Text::_('COM_BLOGG_FORM_LBL_POST_POST_IMAGE'); ?></th>
-			<td><?php echo $this->item->post_image; ?></td>
-		</tr>
+	  $count=1;
+	  if (isset($this->item->comments)) {
+	  foreach( $this->item->comments as $BlogComment) {
+		  $class = ($count%2 != 0) ? 'table_row_first' : 'table_row_second'; 
 
-		<tr>
-			<th><?php echo Text::_('COM_BLOGG_FORM_LBL_POST_EXT_GALLERY'); ?></th>
-			<td><?php echo $this->item->ext_gallery; ?></td>
-		</tr>
-
-		<tr>
-			<th><?php echo Text::_('COM_BLOGG_FORM_LBL_POST_EXT_GALLERY_TEXT'); ?></th>
-			<td><?php echo $this->item->ext_gallery_text; ?></td>
-		</tr>
-
+	  ?>
+	  <tr class="<?php echo $class;?>">
+		  <td align="left" valign="top" style="padding:3px;">
+			 <div class="clsCommentTitle">
+			   <img src="<?php echo $images_path; ?>comments.jpg"  border="0" alt="Comments" />
+				    <?php echo JText::_($BlogComment->comment_title);?>
+			 </div>
+			   <div class="clsMyText" style="padding-left:20px;">
+			   <?php echo JText::_($BlogComment->comment_desc);?>
+               </div>
+			   <div class="clsMyText" style="padding-left:20px;">
+			   <?php if ($BlogComment->comment_gallery) {
+				  echo '<br />'.JText::_('COM_BLOG_INVITE');
+				  if ($BlogComment->comment_gallery_text) { ?>
+					  <a href="<?php echo($BlogComment->comment_gallery) ?>" target="_blank"><?php echo($BlogComment->comment_gallery_text) ?></a>
+				  <?php } else { ?>
+					  <a href="<?php echo($BlogComment->comment_gallery) ?>" target="_blank"><?php echo($BlogComment->comment_gallery) ?></a>
+				  <?php } } ?>						  
+               </div>              			
+			   <div id="divBlogDetails">
+				  <div align="right">
+				    <?php 
+					echo JText::_('COM_BLOG_AUTHOR');
+  					  $author_link = JRoute::_( 'index.php?view=comments&pid='.$BlogComment->id,false);
+  					  if ($userId > 0) {
+					  $author_link = JRoute::_( 'index.php?option=com_comprofiler&task=userProfile&user='.$BlogComment->created_by, false);
+              }
+				    ?>
+					 <a href="<?php echo $author_link;?>">
+						<?php echo JText::_($BlogComment->commentedby);?>
+					 </a>
+					 <?php 
+                     echo  ' - '.JText::_('COM_BLOG_DATE').' '.JHTML::_('date',  $BlogComment->comment_date, JText::_('DATE_FORMAT_LC1')); 
+					
+					 if($userId) {
+						if($userId == $BlogComment->created_by ) {
+ 							  $delLink = JRoute::_( 'index.php?view=comments&task=delete_comment&pid='.$BlogComment->id, false);
+					 ?>
+  					 <img src="<?php echo $images_path; ?>delete.gif"  border="0" alt="Delete" />
+							<a href="javascript:void(0);"  onClick="javascript:__fncDeleteComment('<?php echo $delLink;?>');return false;">
+                <?php echo JText::_('JACTION_DELETE');?>
+              </a>
+					<?php
+						 }
+					 }
+          ?>				
+				</div>
+ 			</div>
+		</td>
+	  </tr>
+	  <tr>
+      <td>
+        <div class="clsTDBorderTop"></div>
+      </td>
+    </tr>
+	  <?php
+		  $count++;
+	   }    // end foreach
+   }
+    ?>
+	  <tr>
+		  <td>&nbsp;</td>
+	  </tr>
+<!-- end comments -->
+ </tbody> 
 	</table>
 
 </div>
 
-<?php $canCheckin = Factory::getApplication()->getIdentity()->authorise('core.manage', 'com_blogg.' . $this->item->id) || $this->item->checked_out == Factory::getApplication()->getIdentity()->id; ?>
+	<?php if ($canComment) : ?>
+		<a href="<?php echo Route::_('index.php?option=com_blogg&task=commentform.edit&id=0', false, 0); ?>"
+		   class="btn btn-success btn-small"><i
+				class="icon-plus"></i>
+			<?php echo Text::_('COM_BLOG_WRITE_COMMENT'); ?></a>
+	<?php endif; ?>
+
+	<?php $canCheckin = Factory::getApplication()->getIdentity()->authorise('core.manage', 'com_blogg.' . $this->item->id) || $this->item->checked_out == Factory::getApplication()->getIdentity()->id; ?>
 	<?php if($canEdit && $this->item->checked_out == 0): ?>
 
 	<a class="btn btn-outline-primary" href="<?php echo Route::_('index.php?option=com_blogg&task=post.edit&id='.$this->item->id); ?>"><?php echo Text::_("COM_BLOGG_EDIT_ITEM"); ?></a>
