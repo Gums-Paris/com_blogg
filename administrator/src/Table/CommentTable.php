@@ -80,11 +80,18 @@ class CommentTable extends Table implements VersionableTableInterface, TaggableT
 		$user = Factory::getApplication()->getIdentity();
 		
 		$input = Factory::getApplication()->input;
+
 		$task = $input->getString('task', '');
 
 		if ($array['id'] == 0 && empty($array['created_by']))
 		{
 			$array['created_by'] = Factory::getUser()->id;
+			$array['comment_date']  = $date->toSQL();
+		}
+
+		if ($array['id'] > 0 && $task == 'save')
+		{
+			$array['comment_update']	= $date->toSQL();
 		}
 
 		if ($array['id'] == 0 && empty($array['modified_by']))

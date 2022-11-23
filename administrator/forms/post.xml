@@ -9,19 +9,19 @@
       <option value="-2">JTRASHED</option>
     </field>
     <field name="ordering"/>
-    <field name="checked_out" type="hidden" filter="unset"/>
-    <field name="checked_out_time" type="hidden" filter="unset"/>
+    <field name="checked_out" default="NULL" type="hidden" filter="unset"/>
+    <field name="checked_out_time" default="NULL" type="hidden" filter="unset"/>
     <field name="created_by" type="createdby" default="0" label="JGLOBAL_FIELD_CREATED_BY_LABEL" description="JGLOBAL_FIELD_CREATED_BY_DESC" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_CREATED_BY"/>
     <field name="modified_by" type="modifiedby" default="0" label="JGLOBAL_FIELD_MODIFIED_BY_LABEL" description="JGLOBAL_FIELD_MODIFIED_BY_DESC" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_MODIFIED_BY"/>
-    <field name="post_date" default="false" type="calendar" class="inputbox" format="%Y-%m-%d %H:%M:%S" showtime="true" translateformat="true" label="COM_BLOGG_FORM_LBL_POST_POST_DATE" description="COM_BLOGG_FORM_DESC_POST_POST_DATE" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_POST_DATE"/>
-    <field name="post_update" default="false" type="calendar" class="inputbox" format="%Y-%m-%d %H:%M:%S" showtime="true" translateformat="true" label="COM_BLOGG_FORM_LBL_POST_POST_UPDATE" description="COM_BLOGG_FORM_DESC_POST_POST_UPDATE" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_POST_UPDATE"/>
-    <field name="post_ip" default="NULL" label="COM_BLOGG_FORM_LBL_POST_POST_IP" description="COM_BLOGG_FORM_DESC_POST_POST_IP" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_POST_IP"/>
+    <field name="post_date" type="calendar" class="inputbox" format="%Y-%m-%d %H:%M:%S" showtime="true" translateformat="true" label="COM_BLOGG_FORM_LBL_POST_POST_DATE" description="COM_BLOGG_FORM_DESC_POST_POST_DATE" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_POST_DATE"/>
+    <field name="post_update" type="calendar" class="inputbox" format="%Y-%m-%d %H:%M:%S" showtime="true" translateformat="true" label="COM_BLOGG_FORM_LBL_POST_POST_UPDATE" description="COM_BLOGG_FORM_DESC_POST_POST_UPDATE" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_POST_UPDATE"/>
+    <field name="post_ip" label="COM_BLOGG_FORM_LBL_POST_POST_IP" description="COM_BLOGG_FORM_DESC_POST_POST_IP" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_POST_IP"/>
     <field name="post_hits" default="0" label="COM_BLOGG_FORM_LBL_POST_POST_HITS" description="COM_BLOGG_FORM_DESC_POST_POST_HITS" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_POST_HITS"/>
-    <field name="post_title" default="false" required="true" message="Donner un titre au post" label="COM_BLOGG_FORM_LBL_POST_POST_TITLE" description="COM_BLOGG_FORM_DESC_POST_POST_TITLE" hint="COM_BLOGG_FORM_LBL_POST_POST_TITLE"/>
-    <field name="post_desc" default="false" type="editor" buttons="true" class="inputbox" filter="safehtml" required="true" message="Please write a text" label="COM_BLOGG_FORM_LBL_POST_POST_DESC" description="COM_BLOGG_FORM_DESC_POST_POST_DESC" hint="COM_BLOGG_FORM_LBL_POST_POST_DESC"/>
-    <field name="post_image" default="NULL" label="COM_BLOGG_FORM_LBL_POST_POST_IMAGE" description="COM_BLOGG_FORM_DESC_POST_POST_IMAGE" hint="COM_BLOGG_FORM_LBL_POST_POST_IMAGE"/>
-    <field name="ext_gallery" default="false" label="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY" description="COM_BLOGG_FORM_DESC_POST_EXT_GALLERY" hint="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY"/>
-    <field name="ext_gallery_text" default="false" label="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY_TEXT" description="COM_BLOGG_FORM_DESC_POST_EXT_GALLERY_TEXT" hint="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY_TEXT"/>
+    <field name="post_title" required="true" message="Donner un titre au post" label="COM_BLOGG_FORM_LBL_POST_POST_TITLE" description="COM_BLOGG_FORM_DESC_POST_POST_TITLE" hint="COM_BLOGG_FORM_LBL_POST_POST_TITLE"/>
+    <field name="post_desc" type="editor" buttons="true" class="inputbox" filter="safehtml" required="true" message="Please write a text" label="COM_BLOGG_FORM_LBL_POST_POST_DESC" description="COM_BLOGG_FORM_DESC_POST_POST_DESC" hint="COM_BLOGG_FORM_LBL_POST_POST_DESC"/>
+    <field name="post_image" label="COM_BLOGG_FORM_LBL_POST_POST_IMAGE" description="COM_BLOGG_FORM_DESC_POST_POST_IMAGE" hint="COM_BLOGG_FORM_LBL_POST_POST_IMAGE"/>
+    <field name="ext_gallery" label="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY" description="COM_BLOGG_FORM_DESC_POST_EXT_GALLERY" hint="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY"/>
+    <field name="ext_gallery_text" label="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY_TEXT" description="COM_BLOGG_FORM_DESC_POST_EXT_GALLERY_TEXT" hint="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY_TEXT"/>
     <field name="version_note" type="text" label="JGLOBAL_FIELD_VERSION_NOTE_LABEL" description="JGLOBAL_FIELD_VERSION_NOTE_DESC" class="inputbox" size="45" labelclass="control-label"/>
   </fieldset>
 </form>

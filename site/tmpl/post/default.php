@@ -105,16 +105,16 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
 					if($this->item->created_by == $userId
 						or in_array(8, $userGroups)) {  
 				?>        
-							<img src="<?php echo $images_path; ?>favorite.gif"  border="0" alt="Edit" />
-							<a href="<?php echo JRoute::_( 'index.php?view=addpost&pid='.$this->item->id.'&author='.$this->item->created_by, false); ?>">
-						<?php echo JText::_('JACTION_EDIT');?>
-							</a>					
-						<?php $delLink = JRoute::_( 'index.php?view=comments&task=delete_mypost&pid=' 
-							.$this->item->id.'&author='.$this->item->created_by, false);?>
-							<img src="<?php echo  $images_path; ?>delete.gif"  border="0" alt="Delete" />
-							<a href="javascript:void(0);"  onClick="javascript:__fncDeletePosts('<?php echo $delLink;?>');return false;">
-						<?php echo JText::_('JACTION_DELETE');?>
-							</a>
+		<!--					<img src="<?php //echo $images_path; ?>favorite.gif"  border="0" alt="Edit" />
+							<a href="<?php //echo JRoute::_( 'index.php?view=addpost&pid='.$this->item->id.'&author='.$this->item->created_by, false); ?>">
+						<?php //echo JText::_('JACTION_EDIT');?>
+							</a>	-->				
+		<!--				<?php //$delLink = JRoute::_( 'index.php?view=comments&task=delete_mypost&pid=' 
+							//.$this->item->id.'&author='.$this->item->created_by, false);?>
+							<img src="<?php //echo  $images_path; ?>delete.gif"  border="0" alt="Delete" />
+							<a href="javascript:void(0);"  onClick="javascript:__fncDeletePosts('<?php //echo $delLink;?>');return false;">
+						<?php //echo JText::_('JACTION_DELETE');?>
+							</a>  -->
 						<?php if($this->item->post_image){    ?>        
 							<?php $delLink = JRoute::_( 'index.php?view=comments&task=delete_mypost_image&pid=' 
 								.$this->item->id.'&author='.$this->item->created_by, false);?>
@@ -229,13 +229,14 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
 	<?php elseif($canCheckin && $this->item->checked_out > 0) : ?>
 	<a class="btn btn-outline-primary" href="<?php echo Route::_('index.php?option=com_blogg&task=post.checkin&id=' . $this->item->id .'&'. Session::getFormToken() .'=1'); ?>"><?php echo Text::_("JLIB_HTML_CHECKIN"); ?></a>
 
-<?php endif; ?>
+	<?php endif; ?>
 
-<?php if (Factory::getApplication()->getIdentity()->authorise('core.delete','com_blogg.post.'.$this->item->id)) : ?>
+	<?php if (Factory::getApplication()->getIdentity()->authorise('core.delete','com_blogg.post.'.$this->item->id)) : ?>
 
 	<a class="btn btn-danger" rel="noopener noreferrer" href="#deleteModal" role="button" data-bs-toggle="modal">
 		<?php echo Text::_("COM_BLOGG_DELETE_ITEM"); ?>
 	</a>
+
 
 	<?php echo HTMLHelper::_(
                                     'bootstrap.renderModal',
@@ -252,4 +253,26 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
                                     Text::sprintf('COM_BLOGG_DELETE_CONFIRM', $this->item->id)
                                 ); ?>
 
-<?php endif; ?>
+	<?php endif; ?>
+	
+	<script language="javascript" type="text/javascript">
+ 		function  __fncDeletePosts( strLink ){
+			if( !confirm("<?php echo JText::_("COM_BLOG_QUESTION_POST");?>")){
+				return false;
+			}
+			window.location = strLink;
+		}
+ 		function  __fncDeletePostImage( strLink ){
+			if( !confirm("<?php echo JText::_("COM_BLOG_QUESTION_IMAGE");?>")){
+				return false;
+			}
+			window.location = strLink;
+		}
+		function  __fncDeleteComment( strLink ){
+			if( !confirm("<?php echo JText::_("COM_BLOG_QUESTION_COMMENT");?>")){
+				return false;
+			}
+			window.location = strLink;
+		}
+		
+	</script>

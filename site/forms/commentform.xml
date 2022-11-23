@@ -11,15 +11,15 @@
     <field name="ordering"/>
     <field name="checked_out" type="hidden" filter="unset"/>
     <field name="checked_out_time" type="hidden" filter="unset"/>
-    <field name="post_id" default="false" label="COM_BLOGG_FORM_LBL_COMMENT_POST_ID" description="COM_BLOGG_FORM_DESC_COMMENT_POST_ID" hidden="true" hint="COM_BLOGG_FORM_LBL_COMMENT_POST_ID"/>
-    <field name="comment_date" default="false" type="calendar" class="inputbox" format="%Y-%m-%d %H:%M:%S" showtime="true" translateformat="true" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_DATE" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_DATE" hidden="true" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_DATE"/>
-    <field name="comment_update" default="NULL" type="calendar" class="inputbox" format="%Y-%m-%d %H:%M:%S" showtime="true" translateformat="true" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_UPDATE" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_UPDATE" hidden="true" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_UPDATE"/>
-    <field name="comment_ip" default="false" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_IP" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_IP" hidden="true" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_IP"/>
+    <field name="post_id" default="0" label="COM_BLOGG_FORM_LBL_COMMENT_POST_ID" description="COM_BLOGG_FORM_DESC_COMMENT_POST_ID" hidden="true" hint="COM_BLOGG_FORM_LBL_COMMENT_POST_ID"/>
+    <field name="comment_date" type="calendar" class="inputbox" format="%Y-%m-%d %H:%M:%S" showtime="true" translateformat="true" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_DATE" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_DATE" hidden="true" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_DATE"/>
+    <field name="comment_update" type="calendar" class="inputbox" format="%Y-%m-%d %H:%M:%S" showtime="true" translateformat="true" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_UPDATE" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_UPDATE" hidden="true" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_UPDATE"/>
+    <field name="comment_ip" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_IP" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_IP" hidden="true" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_IP"/>
     <field name="comment_hit" default="0" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_HIT" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_HIT" hidden="true" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_HIT"/>
-    <field name="comment_title" default="false" required="true" message="Donner un titre" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_TITLE" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_TITLE" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_TITLE"/>
-    <field name="comment_desc" default="false" type="editor" buttons="true" class="inputbox" filter="safehtml" required="true" message="Write your text" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_DESC" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_DESC" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_DESC"/>
-    <field name="comment_gallery" default="false" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_GALLERY" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_GALLERY" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_GALLERY"/>
-    <field name="comment_gallery_text" default="false" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_GALLERY_TEXT" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_GALLERY_TEXT" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_GALLERY_TEXT"/>
+    <field name="comment_title" required="true" message="Donner un titre" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_TITLE" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_TITLE" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_TITLE"/>
+    <field name="comment_desc" type="editor" buttons="true" class="inputbox" filter="safehtml" required="true" message="Write your text" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_DESC" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_DESC" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_DESC"/>
+    <field name="comment_gallery" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_GALLERY" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_GALLERY" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_GALLERY"/>
+    <field name="comment_gallery_text" label="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_GALLERY_TEXT" description="COM_BLOGG_FORM_DESC_COMMENT_COMMENT_GALLERY_TEXT" hint="COM_BLOGG_FORM_LBL_COMMENT_COMMENT_GALLERY_TEXT"/>
     <field name="version_note" type="text" label="JGLOBAL_FIELD_VERSION_NOTE_LABEL" description="JGLOBAL_FIELD_VERSION_NOTE_DESC" class="inputbox" size="45" labelclass="control-label"/>
   </fieldset>
 </form>

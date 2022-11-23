@@ -28,7 +28,6 @@ $lang->load('com_blogg', JPATH_SITE);
 $user    = Factory::getApplication()->getIdentity();
 $canEdit = BloggHelper::canUserEdit($this->item, $user);
 
-
 ?>
 
 <div class="comment-edit front-end-edit">

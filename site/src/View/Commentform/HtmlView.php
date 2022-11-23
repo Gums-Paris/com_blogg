@@ -45,10 +45,13 @@ class HtmlView extends BaseHtmlView
 	public function display($tpl = null)
 	{
 		$app  = Factory::getApplication();
+		$input = Factory::getApplication()->input;
 		$user = $app->getIdentity();
+		$post_id = (int) $app->getUserState('com_blogg.edit.post.id');
 
 		$this->state   = $this->get('State');
 		$this->item    = $this->get('Item');
+		$this->item->post_id = $post_id;
 		$this->params  = $app->getParams('com_blogg');
 		$this->canSave = $this->get('CanSave');
 		$this->form		= $this->get('Form');
@@ -58,8 +61,6 @@ class HtmlView extends BaseHtmlView
 		{
 			throw new \Exception(implode("\n", $errors));
 		}
-
-		
 
 		$this->_prepareDocument();
 

@@ -75,6 +75,7 @@ class PostTable extends Table implements VersionableTableInterface, TaggableTabl
 	 */
 	public function bind($array, $ignore = '')
 	{
+
 		$date = Factory::getDate();
 		$task = Factory::getApplication()->input->get('task');
 		$user = Factory::getApplication()->getIdentity();
@@ -85,6 +86,12 @@ class PostTable extends Table implements VersionableTableInterface, TaggableTabl
 		if ($array['id'] == 0 && empty($array['created_by']))
 		{
 			$array['created_by'] = Factory::getUser()->id;
+			$array['post_date']  = $date->toSQL();
+		}
+		
+		if ($array['id'] > 0 && $task == 'save')
+		{
+			$array['post_update']	= $date->toSQL();
 		}
 
 		if ($array['id'] == 0 && empty($array['modified_by']))
