@@ -36,18 +36,18 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
 <!--	<div class="table-responsive">  -->
 <div>
 	<div class="clsLinkedBlog">
-		<div class="clsLinkedBlog_title"><?php echo JText::_('COM_BLOG_TITLE'); ?></div>
+		<div class="clsLinkedBlog_title"><?php echo Text::_($this->blogTitle); ?></div>
 	</div>
 
 	<div id="clsTopMenuBg">
 		<?php if($userId > 0){ ?>
 		<div class="clsFloatRight">
 			<img src="<?php echo $this->baseurl; ?>/media/com_blogg/Images/icons/add_post.png"  border="0" width="16px" align="bottom" alt="Add New Post" />
-			<a href="<?php echo JRoute::_( 'index.php?option=com_blogg&task=postform.edit&id=0', false ); ?>"><?php echo JText::_('COM_BLOG_ADD_NEW_POST');?></a>
+			<a href="<?php echo JRoute::_( 'index.php?option=com_blogg&task=postform.edit&id=0', false ); ?>"><?php echo Text::_('COM_BLOG_ADD_NEW_POST');?></a>
 		</div>
 		<?php } else {?>
 		<div class="clsFloatRight">
-			<a href="<?php echo JRoute::_('index.php?option=com_users&view=login'. '&return='. base64_encode(JURI::getInstance()->toString()), false);?>"><?php echo JText::_('COM_BLOG_LOGIN_TO_POST');?> </a>
+			<a href="<?php echo JRoute::_('index.php?option=com_users&view=login'. '&return='. base64_encode(JURI::getInstance()->toString()), false);?>"><?php echo Text::_('COM_BLOG_LOGIN_TO_POST');?> </a>
 	    </div>
 		<?php } ?>
 		<div class="clsClearBoth"></div>
@@ -82,7 +82,7 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
 			
 			<tr>
 			  <?php if ($this->item->ext_gallery) {
-				  echo '<br />'.JText::_('COM_BLOG_INVITE');
+				  echo '<br />'.Text::_('COM_BLOG_INVITE');
 				  if ($this->item->ext_gallery_text) { ?>
 					  <a href="<?php echo($this->item->ext_gallery) ?>" target="_blank"><?php echo($this->item->ext_gallery_text) ?></a>
 				  <?php } else { ?>
@@ -92,38 +92,28 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
 			
 			<tr>
 				<div id="divBlogDetails">
-  				<?php echo JText::_('COM_BLOG_AUTHOR');
-    					$author_link = JRoute::_( 'index.php?view=post&id='.$this->item->id,false);
+  				<?php echo Text::_('COM_BLOG_AUTHOR');
+    					$author_link = JRoute::_( 'index.php?option=com_blogg&view=post&id='.$this->item->id,false);
     					if ($userId > 0) 
     						{$author_link = JRoute::_( 'index.php?option=com_comprofiler&task=userProfile&user='.$this->item->created_by, false);}
   				?>
 					<a href="<?php echo $author_link;?>">
-				<?php echo JText::_($this->item->created_by_name);?>
+				<?php echo Text::_($this->item->created_by_name);?>
 					</a>
   				<?php 
-					echo  ' - '.JText::_('COM_BLOG_DATE').' '.JHTML::_('date',  $this->item->post_date, JText::_('DATE_FORMAT_LC1')) .' - ';   				  				   				
+					echo  ' - '.Text::_('COM_BLOG_DATE').' '.JHTML::_('date',  $this->item->post_date, Text::_('DATE_FORMAT_LC1')) .' - ';   				  				   				
 					if($this->item->created_by == $userId
 						or in_array(8, $userGroups)) {  
 				?>        
-		<!--					<img src="<?php //echo $images_path; ?>favorite.gif"  border="0" alt="Edit" />
-							<a href="<?php //echo JRoute::_( 'index.php?view=addpost&pid='.$this->item->id.'&author='.$this->item->created_by, false); ?>">
-						<?php //echo JText::_('JACTION_EDIT');?>
-							</a>	-->				
-		<!--				<?php //$delLink = JRoute::_( 'index.php?view=comments&task=delete_mypost&pid=' 
-							//.$this->item->id.'&author='.$this->item->created_by, false);?>
-							<img src="<?php //echo  $images_path; ?>delete.gif"  border="0" alt="Delete" />
-							<a href="javascript:void(0);"  onClick="javascript:__fncDeletePosts('<?php //echo $delLink;?>');return false;">
-						<?php //echo JText::_('JACTION_DELETE');?>
-							</a>  -->
-						<?php if($this->item->post_image){    ?>        
-							<?php $delLink = JRoute::_( 'index.php?view=comments&task=delete_mypost_image&pid=' 
+						<?php if($this->item->post_image) : ?>
+							<?php $delLink = Route::_( 'index.php?option=com_blogg&task=post.delete_mypost_image&id=' 
 								.$this->item->id.'&author='.$this->item->created_by, false);?>
 								<img src="<?php echo  $images_path; ?>delete.gif"  border="0" alt="Delete" />
 								<a href="javascript:void(0);"  onClick="javascript:__fncDeletePostImage('<?php echo $delLink;?>');return false;">
-							<?php echo JText::_('COM_BLOG_DELETE_IMAGE');?>
+							<?php echo Text::_('COM_BLOG_DELETE_IMAGE');?>
 								</a>
+						<?php endif; ?>
 					<?php
-						}
 					}
 					?>
 				</div>
@@ -135,7 +125,7 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
 	  <tr>
 	  	<td align="left" valign="top">
 			<div class="clsBGCommentTop">
-				<?php echo JText::_('COM_BLOG_COMMENTS').' ('.$this->BlogCommentCount.')';?>
+				<?php echo Text::_('COM_BLOG_COMMENTS').' ('.$this->BlogCommentCount.')';?>
 			</div>
 		</td>
 	  </tr>
@@ -151,14 +141,14 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
 		  <td align="left" valign="top" style="padding:3px;">
 			 <div class="clsCommentTitle">
 			   <img src="<?php echo $images_path; ?>comments.jpg"  border="0" alt="Comments" />
-				    <?php echo JText::_($BlogComment->comment_title);?>
+				    <?php echo Text::_($BlogComment->comment_title);?>
 			 </div>
 			   <div class="clsMyText" style="padding-left:20px;">
-			   <?php echo JText::_($BlogComment->comment_desc);?>
+			   <?php echo Text::_($BlogComment->comment_desc);?>
                </div>
 			   <div class="clsMyText" style="padding-left:20px;">
 			   <?php if ($BlogComment->comment_gallery) {
-				  echo '<br />'.JText::_('COM_BLOG_INVITE');
+				  echo '<br />'.Text::_('COM_BLOG_INVITE');
 				  if ($BlogComment->comment_gallery_text) { ?>
 					  <a href="<?php echo($BlogComment->comment_gallery) ?>" target="_blank"><?php echo($BlogComment->comment_gallery_text) ?></a>
 				  <?php } else { ?>
@@ -168,28 +158,28 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
 			   <div id="divBlogDetails">
 				  <div align="right">
 				    <?php 
-					echo JText::_('COM_BLOG_AUTHOR');
-  					  $author_link = JRoute::_( 'index.php?view=comments&pid='.$BlogComment->id,false);
+					echo Text::_('COM_BLOG_AUTHOR');
+  					  $author_link = Route::_( 'index.php?option=com_blogg&view=post&id='.$BlogComment->id,false);
   					  if ($userId > 0) {
-					  $author_link = JRoute::_( 'index.php?option=com_comprofiler&task=userProfile&user='.$BlogComment->created_by, false);
+					  $author_link = Route::_( 'index.php?option=com_comprofiler&task=userProfile&user='.$BlogComment->created_by, false);
               }
 				    ?>
 					 <a href="<?php echo $author_link;?>">
-						<?php echo JText::_($BlogComment->commentedby);?>
+						<?php echo Text::_($BlogComment->commentedby);?>
 					 </a>
 					 <?php 
-                     echo  ' - '.JText::_('COM_BLOG_DATE').' '.JHTML::_('date',  $BlogComment->comment_date, JText::_('DATE_FORMAT_LC1')); 
+                     echo  ' - '.Text::_('COM_BLOG_DATE').' '.JHTML::_('date',  $BlogComment->comment_date, Text::_('DATE_FORMAT_LC1')); 
 					
-					 if($userId) {
-						if($userId == $BlogComment->created_by ) {
- 							  $delLink = JRoute::_( 'index.php?view=comments&task=delete_comment&pid='.$BlogComment->id, false);
+					 if($BlogComment->created_by == $userId
+						or in_array(8, $userGroups)) {
+ 							  $delLink = Route::_( 'index.php?option=com_blogg&task=post.delete_comment&id='.$BlogComment->id, false);
 					 ?>
   					 <img src="<?php echo $images_path; ?>delete.gif"  border="0" alt="Delete" />
-							<a href="javascript:void(0);"  onClick="javascript:__fncDeleteComment('<?php echo $delLink;?>');return false;">
-                <?php echo JText::_('JACTION_DELETE');?>
-              </a>
-					<?php
-						 }
+					 <a href="javascript:void(0);"  onClick="javascript:__fncDeleteComment('<?php echo $delLink;?>');return false;">
+					 <?php echo Text::_('JACTION_DELETE');?>
+					 </a>
+					 <?php
+
 					 }
           ?>				
 				</div>
@@ -203,7 +193,7 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
     </tr>
 	  <?php
 		  $count++;
-	   }    // end foreach
+	   }    // end foreach comment
    }
     ?>
 	  <tr>
@@ -257,19 +247,19 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
 	
 	<script language="javascript" type="text/javascript">
  		function  __fncDeletePosts( strLink ){
-			if( !confirm("<?php echo JText::_("COM_BLOG_QUESTION_POST");?>")){
+			if( !confirm("<?php echo Text::_("COM_BLOG_QUESTION_POST");?>")){
 				return false;
 			}
 			window.location = strLink;
 		}
  		function  __fncDeletePostImage( strLink ){
-			if( !confirm("<?php echo JText::_("COM_BLOG_QUESTION_IMAGE");?>")){
+			if( !confirm("<?php echo Text::_("COM_BLOG_QUESTION_IMAGE");?>")){
 				return false;
 			}
 			window.location = strLink;
 		}
 		function  __fncDeleteComment( strLink ){
-			if( !confirm("<?php echo JText::_("COM_BLOG_QUESTION_COMMENT");?>")){
+			if( !confirm("<?php echo Text::_("COM_BLOG_QUESTION_COMMENT");?>")){
 				return false;
 			}
 			window.location = strLink;

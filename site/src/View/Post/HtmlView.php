@@ -101,6 +101,7 @@ class HtmlView extends BaseHtmlView
 		// Because the application sets a default page title,
 		// We need to get it from the menu item itself
 		$menu = $menus->getActive();
+		$this->blogTitle = $menu->getParams()->get('page_title');
 
 		if ($menu)
 		{

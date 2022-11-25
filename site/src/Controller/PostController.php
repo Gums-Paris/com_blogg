@@ -217,4 +217,56 @@ class PostController extends BaseController
 			throw new \Exception(500);
 		}
 	}
+
+	/**
+	 * function to Delete Comment
+	 **/
+	function delete_comment()
+	{
+		$model = $this->getModel('Post', 'Site');
+		$post_id = (int) $this->app->getUserState('com_blogg.edit.post.id');
+	
+		// Get the user data.
+		$id = $this->input->getInt('id', 0);
+
+		// Attempt to delete the data.
+		$return = $model->delete_comment($id);
+
+		// Check for errors.
+		if ($return === false)
+		{
+			$this->setMessage(Text::sprintf('Delete failed', $model->getError()), 'warning');
+		}
+		else
+		{
+			$this->app->enqueueMessage(Text::_('COM_BLOGG_ITEM_DELETED_SUCCESSFULLY'), 'success');
+			$this->app->redirect(Route::_('index.php?option=com_blogg&view=post&id='.$post_id, false));
+		}
+	}
+	
+	/**
+	 * function to Delete the image in my post
+	 **/
+	function delete_mypost_image()
+	{
+		$model = $this->getModel('Post', 'Site');
+	
+		// Get the user data.
+		$id = $this->input->getInt('id', 0);
+
+		// Attempt to save the data.
+		$return = $model->delete_mypost_image();
+
+		// Check for errors.
+		if ($return === false)
+		{
+			$this->setMessage(Text::sprintf('Delete failed', $model->getError()), 'warning');
+		}
+		else
+		{
+			$this->app->enqueueMessage(Text::_('COM_BLOGG_ITEM_DELETED_SUCCESSFULLY'), 'success');
+			$this->app->redirect(Route::_('index.php?option=com_blogg&view=post&id='.$id, false));
+		}
+	}
+	
 }

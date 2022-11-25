@@ -321,5 +321,84 @@ class PostModel extends ItemModel
 		
 	}
 
+	/**
+	 * function to Delete Comment
+	 **/
+	function delete_comment($id)
+	{
+		$result = false;
+		$mainframe = Factory::getApplication();
+		$input = $mainframe->input;
+		$user	= Factory::getUser();
+		if(trim($user->id) == '' || $user->id <= 0){
+			$msg = Text::_( 'Please login to manage blog post' );
+			$link = Route::_('index.php?option=com_blogg&view=posts', false);
+			$this->setRedirect( $link, $msg );  return;
+		}
+ 		$Itemid = $input->get( 'Itemid', '', 'INT' );
+		$db = Factory::getDbo();
+		$query  = $db->getQuery(true);
+		$query = 'SELECT id, created_by, post_id FROM #__blogg_comments WHERE id = ' .$id. '  AND created_by = '.$user->id ;
+		$db->setQuery( $query );
+		$rows = $db->loadObjectList();
+		if($rows[0]->id){
+			$query  = $db->getQuery(true);
+			$query = 'DELETE FROM #__blogg_comments WHERE id = '.$id.' AND created_by = '.$user->id ;
+			$db->setQuery( $query );
+			$result = $db->execute();
+			}
+		return $result;	
+	}
+			
+	/**
+	 * function to delete the image in my post
+	 **/
+	function delete_mypost_image()
+	{
+		$result = false;
+		$mainframe = Factory::getApplication();
+		$input = $mainframe->input;
+		$user = Factory::getUser();
+		if(trim($user->id) == '' || $user->id <= 0){
+			$msg = Text::_( 'Please login to manage blog post' );
+			$link = Route::_('index.php?option=com_blog&view=blog', false);
+			$this->setRedirect( $link, $msg );  return;
+		}
+		$base = JPATH_ROOT;
+		$working_folder =$base."/media/com_blogg/";
+		
+		$id = $input->get( 'id', '', 'INT' );
+		if ($input->get( 'author', '', 'INT' )) {
+			$user_id = $input->get( 'author', '', 'INT' ); 
+		} else {
+			$user_id = $user->id; 
+		}
+
+		$Itemid = $input->get( 'Itemid', '', 'INT' );
+
+		$return_view = 'post';
+
+		$db = Factory::getDbo();
+		$query  = $db->getQuery(true);
+		$query = 'SELECT id, created_by, post_image FROM #__blogg_posts WHERE id = '. $id . ' AND created_by = '.$user_id;
+		$db->setQuery( $query );
+		$rows = $db->loadObjectList();
+		if($rows[0]->id){
+			$rowId = $rows[0]->id;
+			if (file_exists($working_folder."grandes/".$rows[0]->post_image)) 
+			{ 
+				@unlink ($working_folder."grandes/".$rows[0]->post_image);
+			}
+			if (file_exists($working_folder."th".$rows[0]->post_image)) 
+			{ 
+				@unlink ($working_folder."th".$rows[0]->post_image);
+			}
+			$query  = $db->getQuery(true);
+			$query = "UPDATE #__blogg_posts SET post_image='' WHERE id = $rowId AND created_by = " .$user_id;
+			$db->setQuery( $query );
+			$result = $db->execute();
+			return $result;
+		}
+	}
 	
 }

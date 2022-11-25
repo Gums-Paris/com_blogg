@@ -74,6 +74,16 @@ $canEdit = BloggHelper::canUserEdit($this->item, $user);
 	<?php echo $this->form->renderField('post_desc'); ?>
 
 	<?php echo $this->form->renderField('post_image'); ?>
+<!--	<td height="25" valign="top" colspan="2"><b><?php //echo JText::_( 'COM_BLOG_UPLOAD_IMAGE' ); ?></b> -->
+	<div id="clsTableTdPadd">
+<!--		<input type="file" name="image" id="file-upload" /> (.jpeg, .gif, .png) -->
+<!--		<input type="hidden" name="image_old" id="image_old" value="<?php //echo $this->item->post_image;?>" />  -->
+		<?php if(isset($this->item->post_image)){?>
+		<div align="left">
+			<img src="<?php echo $this->baseurl; ?>/media/com_blogg/<?php echo "th".$this->item->post_image;?>"  border="0" alt="Blog Image"  class="clsImgPad" />
+		</div>
+		<?php } ?>
+	</div> 
 
 	<?php echo $this->form->renderField('ext_gallery'); ?>
 

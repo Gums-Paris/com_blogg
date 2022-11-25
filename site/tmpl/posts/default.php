@@ -45,16 +45,16 @@ $wa->useStyle('com_blogg.list');
 			<thead>
 			<tr>
 				<div class="clsLinkedBlog">
-					<div class="clsLinkedBlog_title"><?php echo JText::_('COM_BLOG_TITLE'); ?></div>
+					<div class="clsLinkedBlog_title"><?php echo Text::_($this->blogTitle); ?></div>
 				</div>
 										
 				<div id="clsTopMenuBg">
 					<?php if($userId > 0){ ?>
 					<div class="clsFloatRight"><img src="<?php echo $this->baseurl; ?>/media/com_blogg/Images/icons/add_post.png"  border="0" width="16px" align="bottom" alt="Add New Post" />
-						<a href="<?php echo JRoute::_( 'index.php?option=com_blogg&task=postform.edit&id=0', false ); ?>"><?php echo JText::_('COM_BLOG_ADD_NEW_POST');?></a>
+						<a href="<?php echo JRoute::_( 'index.php?option=com_blogg&task=postform.edit&id=0', false ); ?>"><?php echo Text::_('COM_BLOG_ADD_NEW_POST');?></a>
 					</div>
 					<?php } else {?>
-					<div class="clsFloatRight"><a href="<?php echo JRoute::_('index.php?option=com_users&view=login'. '&return='. base64_encode(JURI::getInstance()->toString()), false);?>"><?php echo JText::_('COM_BLOG_LOGIN_TO_POST');?> </a>
+					<div class="clsFloatRight"><a href="<?php echo JRoute::_('index.php?option=com_users&view=login'. '&return='. base64_encode(JURI::getInstance()->toString()), false);?>"><?php echo Text::_('COM_BLOG_LOGIN_TO_POST');?> </a>
 					</div>
 					<?php } ?>
 					<div class="clsClearBoth"></div>
@@ -93,45 +93,15 @@ $wa->useStyle('com_blogg.list');
 				<?php if($item->post_image){?>
 					<img src="<?php echo $this->baseurl.'/media/com_blogg/th'.$item->post_image;?>"  border="0" alt="Blog Image" align="left" class="clsImgPad" />
 				<?php } ?>		
-				<div class="clsMyText"><?php print( substr( JText::_( $item->post_desc),0,500));?>...
+				<div class="clsMyText"><?php print( substr( Text::_( $item->post_desc),0,500));?>...
 				<a href="<?php echo JRoute::_( 'index.php?option=com_blogg&view=post&id='.$item->id, false); ?>">
-					<?php echo JText::_('COM_BLOG_READ_MORE');?>
+					<?php echo Text::_('COM_BLOG_READ_MORE');?>
 				</a>
 				</div>
 			</tr>
-<!-- arrêt temporaire 		
+			<tr></tr>
+<!--  à voir  	
 			<tr>
-					<td>
-						<?php //echo $item->post_desc; ?>
-					</td>
-					<td>
-						<?php //echo $item->post_image; ?>
-					</td>
-					<td>
-						<?php //echo $item->ext_gallery; ?>
-					</td>
-					<td>
-						<?php //echo $item->ext_gallery_text; ?>
-					</td>
-					<td>
-						<?php //echo $item->post_date; ?>
-					</td>
-					<td>
-						<?php //echo $item->post_update; ?>
-					</td>
-					<td>
-						<?php //echo $item->post_hits; ?>
-					</td>
-					<td>
-						<?php //$class = ($canChange) ? 'active' : 'disabled'; ?>
-						<a class="btn btn-micro <?php //echo $class; ?>" href="<?php //echo ($canChange) ? JRoute::_('index.php?option=com_blogg&task=post.publish&id=' . $item->id . '&state=' . (($item->state + 1) % 2), false, 2) : '#'; ?>">
-						<?php //if ($item->state == 1): ?>
-							<i class="icon-publish"></i>
-						<?php //else: ?>
-							<i class="icon-unpublish"></i>
-						<?php //endif; ?>
-						</a>
-					</td>
 					<?php //if ($canEdit || $canDelete): ?>
 						<td class="center">
 							<?php //$canCheckin = Factory::getApplication()->getIdentity()->authorise('core.manage', 'com_blogg.' . $item->id) || $item->checked_out == Factory::getApplication()->getIdentity()->id; ?>
@@ -146,6 +116,30 @@ $wa->useStyle('com_blogg.list');
 					<?php //endif; ?>
 
 				</tr>   -->
+				
+		<div id="divBlogDetails">
+			<div align="right">
+				<?php echo Text::_('COM_BLOG_AUTHOR');?>
+ 				<a href="<?php echo $author_link;?>"><?php echo Text::_($item->created_by);?></a>
+				<?php echo  ' - '.Text::_('COM_BLOG_DATE').' '.JHTML::_('date',  $item->post_date, Text::_('DATE_FORMAT_LC1')); ?>
+				<img src="<?php echo $this->baseurl; ?>/media/com_blogg/Images/icons/comments.gif"  border="0" alt="Comments" />
+				<a href="<?php echo JRoute::_( 'index.php?view=post&id='.$item->id, false); ?>">
+					<?php 
+//					$options['id']	= $item->id;
+//					$BlogCommentCount	= $this->modelitem->fncGetTotalComments( $options );
+//					echo Text::_('COM_BLOG_COMMENTS'); echo '('.$BlogCommentCount.')';?>
+					<?php	//echo Text::_('COM_BLOG_COMMENTS').' ('.max(0, $item->nb_comments).')';?>
+					<?php	echo Text::_('COM_BLOG_COMMENTS').' ('.max(0, 0).')';?>
+				</a>
+				<img src="<?php echo $this->baseurl; ?>/media/com_blogg/Images/icons/readmore.png"  border="0" title="Read More..." />
+				<a href="<?php echo JRoute::_( 'index.php?view=post&id='.$item->id, false); ?>">
+					<?php echo Text::_('COM_BLOG_READ_MORE');?>
+				</a>
+				
+			</div>
+		</div>
+
+				
 			<?php endforeach; ?>
 			</tbody>
 		</table>

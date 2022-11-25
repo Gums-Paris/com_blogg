@@ -313,7 +313,6 @@ class CommentformModel extends FormModel
 		$id    = (!empty($data['id'])) ? $data['id'] : (int) $this->getState('comment.id');
 		$state = (!empty($data['state'])) ? 1 : 0;
 		$user  = Factory::getApplication()->getIdentity();
-//echo('id = '.$id.', state = '.$state);
 		
 		if ($id)
 		{

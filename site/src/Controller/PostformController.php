@@ -83,6 +83,16 @@ class PostformController extends FormController
 		// Get the user data.
 		$data = $this->input->get('jform', array(), 'array');
 
+		// Check valid file format for Upload
+		if($_FILES["jform"]["size"]["post_image"] > 0 ){
+			$path = strtolower(strrchr($_FILES["jform"]["name"]["post_image"], '.'));
+			if(($path!='.jpeg') && ($path!='.jpg') && ($path!='.gif') && ($path!='.png')){
+				$msg = Text::_( 'COM_BLOG_AUTHORISED_FORMATS' );
+				$link = Route::_('index.php?option=com_blogg&view=postform&layout=edit&Itemid='.$Itemid, false);
+				$this->setRedirect( $link, $msg );return; exit(0);
+			}
+		}
+			
 		// Validate the posted data.
 		$form = $model->getForm();
 
@@ -130,7 +140,7 @@ class PostformController extends FormController
 
 		// Check for errors.
 		if ($return === false)
-		{
+		{ 
 			// Save the data in the session.
 			$this->app->setUserState('com_blogg.edit.post.data', $data);
 
@@ -141,6 +151,16 @@ class PostformController extends FormController
 			$this->redirect();
 		}
 
+		// Upload Logo -Start Here
+
+		$upload = $model->uploadlogo($data['id']);
+		if($upload == 'invalidformat'){
+			$msg = Text::_( 'COM_BLOG_AUTHORISED_FORMATS' );
+			$link = Route::_('index.php?option=com_blogg&view=postform&layout=edit&Itemid='.$Itemid.'&id='.$data['id'], false);
+			$this->setRedirect( $link, $msg );return; exit(0);
+		}
+		// Upload Logo -End Here
+			 
 		// Check in the profile.
 		if ($return)
 		{

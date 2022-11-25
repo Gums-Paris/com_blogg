@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form addfieldprefix="Blogg\Component\Blogg\Site\Field">
+<form addfieldprefix="Blogg\Component\Blogg\Site\Field" enctype="multipart/form-data">
   <fieldset>
     <field name="id" type="text" readonly="true" class="readonly" default="0" description="JGLOBAL_FIELD_ID_DESC"/>
     <field name="state" default="1" type="list" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" class="inputbox" size="1">
@@ -17,7 +17,7 @@
     <field name="post_hits" default="0" label="COM_BLOGG_FORM_LBL_POST_POST_HITS" description="COM_BLOGG_FORM_DESC_POST_POST_HITS" hidden="true" hint="COM_BLOGG_FORM_LBL_POST_POST_HITS"/>
     <field name="post_title" required="true" message="Donner un titre au post" label="COM_BLOGG_FORM_LBL_POST_POST_TITLE" description="COM_BLOGG_FORM_DESC_POST_POST_TITLE" hint="COM_BLOGG_FORM_LBL_POST_POST_TITLE"/>
     <field name="post_desc" type="editor" buttons="true" class="inputbox" filter="safehtml" required="true" message="Please write a text" label="COM_BLOGG_FORM_LBL_POST_POST_DESC" description="COM_BLOGG_FORM_DESC_POST_POST_DESC" hint="COM_BLOGG_FORM_LBL_POST_POST_DESC"/>
-    <field name="post_image" label="COM_BLOGG_FORM_LBL_POST_POST_IMAGE" description="COM_BLOGG_FORM_DESC_POST_POST_IMAGE" hint="COM_BLOGG_FORM_LBL_POST_POST_IMAGE"/>
+    <field name="post_image" type="file" label="COM_BLOGG_FORM_LBL_POST_POST_IMAGE" description="COM_BLOGG_FORM_DESC_POST_POST_IMAGE" size="100" accept="image/*" />    
     <field name="ext_gallery" label="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY" description="COM_BLOGG_FORM_DESC_POST_EXT_GALLERY" hint="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY"/>
     <field name="ext_gallery_text" label="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY_TEXT" description="COM_BLOGG_FORM_DESC_POST_EXT_GALLERY_TEXT" hint="COM_BLOGG_FORM_LBL_POST_EXT_GALLERY_TEXT"/>
     <field name="version_note" type="text" label="JGLOBAL_FIELD_VERSION_NOTE_LABEL" description="JGLOBAL_FIELD_VERSION_NOTE_DESC" class="inputbox" size="45" labelclass="control-label"/>
