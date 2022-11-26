@@ -43,11 +43,11 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
 		<?php if($userId > 0){ ?>
 		<div class="clsFloatRight">
 			<img src="<?php echo $this->baseurl; ?>/media/com_blogg/Images/icons/add_post.png"  border="0" width="16px" align="bottom" alt="Add New Post" />
-			<a href="<?php echo JRoute::_( 'index.php?option=com_blogg&task=postform.edit&id=0', false ); ?>"><?php echo Text::_('COM_BLOG_ADD_NEW_POST');?></a>
+			<a href="<?php echo Route::_( 'index.php?option=com_blogg&task=postform.edit&id=0', false ); ?>"><?php echo Text::_('COM_BLOG_ADD_NEW_POST');?></a>
 		</div>
 		<?php } else {?>
 		<div class="clsFloatRight">
-			<a href="<?php echo JRoute::_('index.php?option=com_users&view=login'. '&return='. base64_encode(JURI::getInstance()->toString()), false);?>"><?php echo Text::_('COM_BLOG_LOGIN_TO_POST');?> </a>
+			<a href="<?php echo Route::_('index.php?option=com_users&view=login'. '&return='. base64_encode(JURI::getInstance()->toString()), false);?>"><?php echo Text::_('COM_BLOG_LOGIN_TO_POST');?> </a>
 	    </div>
 		<?php } ?>
 		<div class="clsClearBoth"></div>
@@ -93,9 +93,9 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
 			<tr>
 				<div id="divBlogDetails">
   				<?php echo Text::_('COM_BLOG_AUTHOR');
-    					$author_link = JRoute::_( 'index.php?option=com_blogg&view=post&id='.$this->item->id,false);
+    					$author_link = Route::_( 'index.php?option=com_blogg&view=post&id='.$this->item->id,false);
     					if ($userId > 0) 
-    						{$author_link = JRoute::_( 'index.php?option=com_comprofiler&task=userProfile&user='.$this->item->created_by, false);}
+    						{$author_link = Route::_( 'index.php?option=com_comprofiler&task=userProfile&user='.$this->item->created_by, false);}
   				?>
 					<a href="<?php echo $author_link;?>">
 				<?php echo Text::_($this->item->created_by_name);?>
