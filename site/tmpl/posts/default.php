@@ -104,12 +104,12 @@ $wa->useStyle('com_blogg.list');
 		<div id="divBlogDetails">
 			<div align="right">
 				<?php echo Text::_('COM_BLOG_AUTHOR');?>
- 				<a href="<?php echo $author_link;?>"><?php echo Text::_($item->created_by);?></a>
+ 				<a href="<?php echo $author_link;?>"><?php echo Text::_($item->publishedby);?></a>
 				<?php echo  ' - '.Text::_('COM_BLOG_DATE').' '.JHTML::_('date',  $item->post_date, Text::_('DATE_FORMAT_LC1')); ?>
 				<img src="<?php echo $this->baseurl; ?>/media/com_blogg/Images/icons/comments.gif"  border="0" alt="Comments" />
 				<a href="<?php echo Route::_( 'index.php?view=post&id='.$item->id, false); ?>">
-					<?php	//echo Text::_('COM_BLOG_COMMENTS').' ('.max(0, $item->nb_comments).')';?>
-					<?php	echo Text::_('COM_BLOG_COMMENTS').' ('.max(0, 0).')';?>
+					<?php	echo Text::_('COM_BLOG_COMMENTS').' ('.max(0, $item->nb_comments).')';?>
+					<?php	//echo Text::_('COM_BLOG_COMMENTS').' ('.max(0, 0).')';?>
 				</a>
 				<img src="<?php echo $this->baseurl; ?>/media/com_blogg/Images/icons/readmore.png"  border="0" title="Read More..." />
 				<a href="<?php echo Route::_( 'index.php?view=post&id='.$item->id, false); ?>">
