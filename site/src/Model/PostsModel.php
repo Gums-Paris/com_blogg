@@ -142,15 +142,34 @@ class PostsModel extends ListModel
 			$query->from('`#__blogg_posts` AS a');
 			
 		// Join over the users for the checked out user and the post author
-		$query->select('uc.name AS uEditor, up.name AS publishedby, com.nb_comments');
-		$query->join('LEFT', '#__users AS uc ON uc.id = a.checked_out');
-		$query->join('LEFT', '#__users AS up ON up.id = a.created_by');
+		$query->select('uc.name AS uEditor, up.name AS publishedby, nb_comments');
+		$query->join('LEFT', '#__users AS uc ON uc.id=a.checked_out');
+		$query->join('LEFT', '#__users AS up ON up.id=a.created_by');
+
+		// Join over the created by field 'created_by'
+//		$query->join('LEFT', '#__users AS created_by ON created_by.id = a.created_by');
 
 		// Join over the created by field 'modified_by'
-		$query->join('LEFT', '#__users AS modified_by ON modified_by.id = a.modified_by');
+//		$query->join('LEFT', '#__users AS modified_by ON modified_by.id = a.modified_by');
 		
-		// Join over the comments to count the number of comments associated to each post
+		// Join over the comments to count the comments associated to each post
 		$query->join('LEFT', '(select post_id, count(id) as nb_comments FROM #__blogg_comments GROUP BY post_id) as com ON a.id = com.post_id');
+
+/*
+*	Cette version ne marche pas ; elle ne sort que les posts accompagnés de commentaires  (en dépit du LEFT JOIN)
+* 	
+*		$query->select('uc.name AS uEditor, up.name AS publishedby');
+*		$query->select('com.post_id, count(com.id) AS nb_comments');
+*		
+*		// Join over the users for the checked out user and the post author
+*		$query->join('LEFT', '#__users AS uc ON uc.id = a.checked_out');
+*		$query->join('LEFT', '#__users AS up ON up.id = a.created_by');
+*		
+*		// Join over the comments to count the number of comments associated to each post
+*		$query->join('LEFT', '#__blogg_comments AS com ON a.id = com.post_id');  
+*		$query->group('com.post_id');  
+*
+*/
 			
 		if (!Factory::getApplication()->getIdentity()->authorise('core.edit', 'com_blogg'))
 		{
@@ -176,10 +195,7 @@ class PostsModel extends ListModel
 					$query->where('( a.post_title LIKE ' . $search . ' )');
 				}
 			}
-			
-
-			
-			
+									
 			// Add the list ordering clause.
 			$orderCol  = $this->state->get('list.ordering', 'a.post_date');
 			$orderDirn = $this->state->get('list.direction', 'DESC');
@@ -200,7 +216,7 @@ class PostsModel extends ListModel
 	public function getItems()
 	{
 		$items = parent::getItems();
-		
+
 		return $items;
 	}
 

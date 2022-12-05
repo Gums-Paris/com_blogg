@@ -22,12 +22,14 @@ use Joomla\Utilities\ArrayHelper;
 $wa = $this->document->getWebAssetManager();
 $wa->useStyle('com_blogg.list');
 
+$canDeleteOwn = false;
 $userId  = Factory::getApplication()->getIdentity()->get('id');
 $userGroups  = Factory::getApplication()->getIdentity()->get('groups');
 $canEdit = Factory::getApplication()->getIdentity()->authorise('core.edit', 'com_blogg');
 if (!$canEdit && Factory::getApplication()->getIdentity()->authorise('core.edit.own', 'com_blogg'))
 {
 	$canEdit = Factory::getApplication()->getIdentity()->id == $this->item->created_by;
+	$canDeleteOwn = $canEdit;
 }
 $canComment = Factory::getApplication()->getIdentity()->authorise('core.create', 'com_blogg') && file_exists(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'forms' . DIRECTORY_SEPARATOR . 'commentform.xml');
 $images_path = $this->baseurl . '/media/com_blogg/Images/icons/'; 
@@ -221,7 +223,8 @@ $images_path = $this->baseurl . '/media/com_blogg/Images/icons/';
 
 	<?php endif; ?>
 
-	<?php if (Factory::getApplication()->getIdentity()->authorise('core.delete','com_blogg.post.'.$this->item->id)) : ?>
+	<?php if (Factory::getApplication()->getIdentity()->authorise('core.delete','com_blogg.post.'.$this->item->id)
+		|| $canDeleteOwn) : ?>
 
 	<a class="btn btn-danger" rel="noopener noreferrer" href="#deleteModal" role="button" data-bs-toggle="modal">
 		<?php echo Text::_("COM_BLOGG_DELETE_ITEM"); ?>

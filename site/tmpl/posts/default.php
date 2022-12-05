@@ -49,7 +49,7 @@ $wa->useStyle('com_blogg.list');
 				</div>
 										
 				<div id="clsTopMenuBg">
-					<?php if($userId > 0){ ?>
+					<?php if($canCreate){ ?>
 					<div class="clsFloatRight"><img src="<?php echo $this->baseurl; ?>/media/com_blogg/Images/icons/add_post.png"  border="0" width="16px" align="bottom" alt="Add New Post" />
 						<a href="<?php echo Route::_( 'index.php?option=com_blogg&task=postform.edit&id=0', false ); ?>"><?php echo Text::_('COM_BLOG_ADD_NEW_POST');?></a>
 					</div>

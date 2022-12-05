@@ -134,11 +134,13 @@ class PostModel extends ItemModel
 // get the comments associated to this post		
 		$db 	= Factory::getDbo();
 		$query  = $db->getQuery(true);
-		$query	= 	'
-      SELECT comment.*, user.name AS commentedby
-			FROM #__blogg_comments AS comment 
-      LEFT JOIN #__users AS user ON comment.created_by = user.id
-			WHERE comment.state = "1" AND post_id='. (int) $id.' ORDER BY comment.comment_date ASC';
+		$query
+			->select('comment.*, user.name AS commentedby')
+			->from('#__blogg_comments AS comment')
+			->join('LEFT', '#__users AS user ON comment.created_by = user.id')
+			->where('comment.state = "1" AND post_id='. (int) $id)
+			->order('comment.comment_date ASC');
+		
 		if ($this->_getList( $query )) {
 			$this->_item->comments = $this->_getList( $query ); }
 		

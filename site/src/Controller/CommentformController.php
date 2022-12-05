@@ -156,9 +156,11 @@ class CommentformController extends FormController
 			$this->setMessage(Text::_('COM_BLOGG_ITEM_SAVED_SUCCESSFULLY'));
 		}
 		
+		$post_id = (int) $this->app->getUserState('com_blogg.edit.post.id');
 		$menu = Factory::getApplication()->getMenu();
 		$item = $menu->getActive();
-		$url  = (empty($item->link) ? 'index.php?option=com_blogg&view=comments' : $item->link);
+//		$url  = (empty($item->link) ? 'index.php?option=com_blogg&view=comments' : $item->link);
+		$url  = 'index.php?option=com_blogg&view=post&id='.$post_id;
 		$this->setRedirect(Route::_($url, false));
 
 		// Flush the data from the session.
