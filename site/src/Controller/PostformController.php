@@ -82,7 +82,7 @@ class PostformController extends FormController
 
 		// Get the user data.
 		$data = $this->input->get('jform', array(), 'array');
-
+	
 		// Check valid file format for Upload
 		if($_FILES["jform"]["size"]["post_image"] > 0 ){
 			$path = strtolower(strrchr($_FILES["jform"]["name"]["post_image"], '.'));
@@ -150,9 +150,11 @@ class PostformController extends FormController
 			$this->setRedirect(Route::_('index.php?option=com_blogg&view=postform&layout=edit&id=' . $id, false));
 			$this->redirect();
 		}
-
+// après un successful save, l'id du post n'est pas dans $data['id'] on va l'y mettre mais c'est un pis-aller
+		$data['id'] = $return; 
+		
 		// Upload Logo -Start Here
-
+		
 		$upload = $model->uploadlogo($data['id']);
 		if($upload == 'invalidformat'){
 			$msg = Text::_( 'COM_BLOG_AUTHORISED_FORMATS' );
